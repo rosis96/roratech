@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en" class="dark" data-theme="dark" data-font-mode="dark">
 <head>
     <!-- Primary Meta Tags -->
     <meta charset="UTF-8">
@@ -28,28 +28,80 @@
     
     <!-- Stylesheets -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
     
     <!-- Calendly Widget CSS -->
     <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
     
     <style>
+        :root {
+            --bg: #0a0a0a;
+            --bg-soft: #0f0f0f;
+            --card: #0a0a0a;
+            --text: #ffffff;
+            --text-soft: #9ca3af;
+            --text-muted: #6b7280;
+            --line: rgba(255,255,255,0.08);
+            --line-soft: rgba(255,255,255,0.05);
+            --overlay-grid: rgba(182, 255, 0, 0.03);
+            --accent: #B6FF00;
+            --accent-2: #7FFF00;
+            --danger: #ef4444;
+            --danger-bg: rgba(239, 68, 68, 0.10);
+            --yellow: #eab308;
+            --yellow-bg: rgba(234, 179, 8, 0.10);
+            --green: #22c55e;
+            --white-soft: rgba(255,255,255,0.05);
+            --white-soft-hover: rgba(255,255,255,0.10);
+            --nav-bg: rgba(10,10,10,0.80);
+            --display-font: 'Space Grotesk', sans-serif;
+        }
+
+        html[data-theme="light"] {
+            --bg: #f7f8f3;
+            --bg-soft: #eef2e4;
+            --card: #ffffff;
+            --text: #101010;
+            --text-soft: #4b5563;
+            --text-muted: #6b7280;
+            --line: rgba(16,16,16,0.10);
+            --line-soft: rgba(16,16,16,0.06);
+            --overlay-grid: rgba(120, 160, 0, 0.06);
+            --accent: #7aa800;
+            --accent-2: #9ccc00;
+            --danger: #dc2626;
+            --danger-bg: rgba(220, 38, 38, 0.10);
+            --yellow: #b45309;
+            --yellow-bg: rgba(245, 158, 11, 0.12);
+            --green: #15803d;
+            --white-soft: rgba(0,0,0,0.04);
+            --white-soft-hover: rgba(0,0,0,0.08);
+            --nav-bg: rgba(247,248,243,0.82);
+            --display-font: 'Manrope', sans-serif;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
         
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #0a0a0a;
-            color: #ffffff;
+            background-color: var(--bg);
+            color: var(--text);
             overflow-x: hidden;
+            transition: background-color 0.35s ease, color 0.35s ease;
         }
         
         .font-display {
-            font-family: 'Space Grotesk', sans-serif;
+            font-family: var(--display-font);
+            transition: font-family 0.25s ease;
         }
         
         .material-symbols-outlined {
@@ -57,7 +109,7 @@
         }
         
         .gradient-text {
-            background: linear-gradient(135deg, #B6FF00 0%, #7FFF00 100%);
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -66,16 +118,24 @@
         .gradient-border {
             position: relative;
             border: 1px solid transparent;
-            background: linear-gradient(#0a0a0a, #0a0a0a) padding-box,
-                        linear-gradient(135deg, #B6FF00, #7FFF00) border-box;
+            background: linear-gradient(var(--card), var(--card)) padding-box,
+                        linear-gradient(135deg, var(--accent), var(--accent-2)) border-box;
         }
         
         .glow {
-            box-shadow: 0 0 40px rgba(182, 255, 0, 0.15);
+            box-shadow: 0 0 40px rgba(182, 255, 0, 0.12);
         }
         
         .glow-strong {
-            box-shadow: 0 0 60px rgba(182, 255, 0, 0.3);
+            box-shadow: 0 0 60px rgba(182, 255, 0, 0.22);
+        }
+        
+        html[data-theme="light"] .glow {
+            box-shadow: 0 18px 50px rgba(122, 168, 0, 0.10);
+        }
+        
+        html[data-theme="light"] .glow-strong {
+            box-shadow: 0 22px 60px rgba(122, 168, 0, 0.12);
         }
         
         .stat-number {
@@ -84,10 +144,10 @@
         
         @keyframes pulse-glow {
             0%, 100% {
-                box-shadow: 0 0 20px rgba(182, 255, 0, 0.2);
+                box-shadow: 0 0 20px rgba(182, 255, 0, 0.15);
             }
             50% {
-                box-shadow: 0 0 40px rgba(182, 255, 0, 0.4);
+                box-shadow: 0 0 40px rgba(182, 255, 0, 0.28);
             }
         }
         
@@ -97,8 +157,8 @@
         
         .grid-pattern {
             background-image: 
-                linear-gradient(rgba(182, 255, 0, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(182, 255, 0, 0.03) 1px, transparent 1px);
+                linear-gradient(var(--overlay-grid) 1px, transparent 1px),
+                linear-gradient(90deg, var(--overlay-grid) 1px, transparent 1px);
             background-size: 50px 50px;
         }
         
@@ -114,7 +174,7 @@
         
         .metric-bar {
             height: 4px;
-            background: linear-gradient(90deg, #B6FF00 0%, transparent 100%);
+            background: linear-gradient(90deg, var(--accent) 0%, transparent 100%);
         }
         
         nav a {
@@ -122,29 +182,146 @@
         }
         
         nav a:hover {
-            color: #B6FF00;
+            color: var(--accent);
         }
         
         .cta-button {
-            background: linear-gradient(135deg, #B6FF00 0%, #7FFF00 100%);
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
             color: #0a0a0a;
             transition: all 0.3s ease;
         }
         
         .cta-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 40px rgba(182, 255, 0, 0.4);
+            box-shadow: 0 10px 40px rgba(182, 255, 0, 0.28);
         }
-        
-        .blog-card {
-            transition: all 0.3s ease;
+
+        .theme-toggle {
+            border: 1px solid var(--line);
+            background: var(--white-soft);
+            color: var(--text);
+            backdrop-filter: blur(14px);
+            transition: all 0.25s ease;
         }
-        
-        .blog-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 0 40px rgba(182, 255, 0, 0.2);
+
+        .theme-toggle:hover {
+            background: var(--white-soft-hover);
+            border-color: rgba(182,255,0,0.35);
+        }
+
+        .surface-soft {
+            background-color: var(--bg-soft);
+        }
+
+        .surface-card {
+            background-color: var(--card);
+        }
+
+        .text-soft {
+            color: var(--text-soft);
+        }
+
+        .text-muted {
+            color: var(--text-muted);
+        }
+
+        .border-soft {
+            border-color: var(--line);
+        }
+
+        .border-softer {
+            border-color: var(--line-soft);
+        }
+
+        .soft-pill {
+            background: color-mix(in srgb, var(--accent) 10%, transparent);
+            border: 1px solid color-mix(in srgb, var(--accent) 18%, transparent);
+        }
+
+        .danger-box {
+            background: var(--danger-bg);
+        }
+
+        .warning-box {
+            background: var(--yellow-bg);
+        }
+
+        .nav-shell {
+            background: var(--nav-bg);
+        }
+
+        .plain-button {
+            background: var(--white-soft);
+            color: var(--text);
+            border: 1px solid var(--line);
+            transition: all 0.25s ease;
+        }
+
+        .plain-button:hover {
+            background: var(--white-soft-hover);
+        }
+
+        html[data-theme="light"] .cta-button {
+            color: #101010;
+        }
+
+        html[data-theme="light"] .text-white {
+            color: var(--text) !important;
+        }
+
+        html[data-theme="light"] .text-gray-400,
+        html[data-theme="light"] .text-gray-500 {
+            color: var(--text-soft) !important;
+        }
+
+        html[data-theme="light"] .border-white\/10,
+        html[data-theme="light"] .border-white\/5 {
+            border-color: var(--line) !important;
+        }
+
+        html[data-theme="light"] .bg-white\/5 {
+            background-color: var(--white-soft) !important;
+        }
+
+        html[data-theme="light"] .hover\:bg-white\/10:hover {
+            background-color: var(--white-soft-hover) !important;
+        }
+
+        html[data-theme="light"] .text-\[\#B6FF00\] {
+            color: var(--accent) !important;
+        }
+
+        html[data-theme="light"] .bg-\[\#B6FF00\]\/10 {
+            background-color: color-mix(in srgb, var(--accent) 10%, transparent) !important;
+        }
+
+        html[data-theme="light"] .border-\[\#B6FF00\]\/20 {
+            border-color: color-mix(in srgb, var(--accent) 20%, transparent) !important;
+        }
+
+        html[data-theme="light"] .bg-\[\#0f0f0f\],
+        html[data-theme="light"] .bg-\[\#0a0a0a\] {
+            background-color: var(--bg-soft) !important;
+        }
+
+        html[data-theme="light"] .from-\[\#B6FF00\],
+        html[data-theme="light"] .to-\[\#7FFF00\] {
+            color: inherit;
         }
     </style>
+    
+    <!-- Theme Init -->
+    <script>
+        (function () {
+            const savedTheme = localStorage.getItem('rora-theme');
+            const theme = savedTheme === 'light' ? 'light' : 'dark';
+            const root = document.documentElement;
+            root.setAttribute('data-theme', theme);
+            root.setAttribute('data-font-mode', theme);
+            root.classList.remove('dark', 'light');
+            root.classList.add(theme);
+        })();
+    </script>
     
     <!-- Schema.org Markup for Organization -->
     <script type="application/ld+json">
@@ -196,11 +373,11 @@
         {
           "@type": "Offer",
           "name": "Adaptive Lifecycle Engine",
-          "price": "601",
+          "price": "999",
           "priceCurrency": "USD",
           "priceSpecification": {
             "@type": "UnitPriceSpecification",
-            "price": "601",
+            "price": "999",
             "priceCurrency": "USD",
             "billingIncrement": "Month"
           },
@@ -234,7 +411,7 @@
         },
         {
           "@type": "Question",
-          "name": "What is included in the $601/month Adaptive Lifecycle Engine?",
+          "name": "What is included in the $999/month Adaptive Lifecycle Engine?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "The Adaptive Lifecycle Engine includes automated domain rotation, behavioral pattern masking, real-time ISP monitoring, and continuous reputation management. Domain licenses and email accounts are pass-through costs billed separately."
@@ -248,7 +425,7 @@
 <body class="antialiased">
     
     <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 bg-[#0a0a0a]/80 backdrop-blur-xl border-b border-white/5" role="navigation" aria-label="Main navigation">
+    <nav class="fixed top-0 w-full z-50 nav-shell backdrop-blur-xl border-b border-softer" role="navigation" aria-label="Main navigation">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
                 <div class="flex items-center gap-3">
@@ -257,21 +434,33 @@
                     </div>
                     <div>
                         <span class="font-display font-bold text-xl tracking-tight">RORA<span class="text-[#B6FF00]">_</span>TECH</span>
-                        <div class="text-[10px] text-gray-500 uppercase tracking-wider -mt-1">Adaptive Infrastructure</div>
+                        <div class="text-[10px] text-muted uppercase tracking-wider -mt-1">Adaptive Infrastructure</div>
                     </div>
                 </div>
                 
-                <div class="hidden md:flex items-center gap-8 text-sm font-medium">
-                    <a href="#services" class="text-gray-400 hover:text-white">Services</a>
-                    <a href="#diagnostic" class="text-gray-400 hover:text-white">Diagnostic</a>
+                <div class="hidden md:flex items-center gap-4 lg:gap-8 text-sm font-medium">
+                    <a href="#services" class="text-soft hover:text-white">Services</a>
+                    <a href="#diagnostic" class="text-soft hover:text-white">Diagnostic</a>
+
+                    <button id="themeToggleDesktop" type="button" class="theme-toggle inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-semibold" aria-label="Toggle day and night mode">
+                        <span class="material-symbols-outlined text-[18px]" id="themeIconDesktop">dark_mode</span>
+                        <span id="themeLabelDesktop">Night</span>
+                    </button>
+
                     <button onclick="Calendly.initPopupWidget({url: 'https://calendly.com/rosis/15min?month=2025-09'});return false;" class="px-6 py-2.5 rounded-full cta-button font-semibold text-sm">
                         Book a Call
                     </button>
                 </div>
                 
-                <button class="md:hidden text-gray-400" aria-label="Open menu">
-                    <span class="material-symbols-outlined">menu</span>
-                </button>
+                <div class="md:hidden flex items-center gap-2">
+                    <button id="themeToggleMobile" type="button" class="theme-toggle inline-flex items-center justify-center w-11 h-11 rounded-full" aria-label="Toggle day and night mode">
+                        <span class="material-symbols-outlined text-[20px]" id="themeIconMobile">dark_mode</span>
+                    </button>
+
+                    <button class="text-soft plain-button w-11 h-11 rounded-full inline-flex items-center justify-center" aria-label="Open menu">
+                        <span class="material-symbols-outlined">menu</span>
+                    </button>
+                </div>
             </div>
         </div>
     </nav>
@@ -284,7 +473,7 @@
         
         <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
             <div class="max-w-4xl">
-                <div class="inline-flex items-center gap-2 px-4 py-2 bg-[#B6FF00]/10 border border-[#B6FF00]/20 rounded-full mb-8">
+                <div class="inline-flex items-center gap-2 px-4 py-2 soft-pill rounded-full mb-8">
                     <span class="w-2 h-2 bg-[#B6FF00] rounded-full animate-pulse"></span>
                     <span class="text-[#B6FF00] text-xs font-semibold uppercase tracking-wider">Adaptive Lifecycle Management</span>
                 </div>
@@ -294,9 +483,9 @@
                     <span class="gradient-text">So why did your reply rates die in Week 3?</span>
                 </h1>
                 
-                <p class="text-xl text-gray-400 leading-relaxed mb-12 max-w-2xl">
+                <p class="text-xl text-soft leading-relaxed mb-12 max-w-2xl">
                     You hit the Reputation Wall. Every sender does. The ISPs caught your pattern, flagged your behavior, 
-                    and you're back in spam—even though your "setup" was perfect. We manage the decay, not the DNS.
+                    and you're back in spam even though your setup was perfect. We manage the decay, not the DNS.
                 </p>
                 
                 <div class="flex flex-col sm:flex-row gap-4">
@@ -307,25 +496,25 @@
             </div>
             
             <!-- Stats Bar -->
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 mt-20 pt-12 border-t border-white/10">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 mt-20 pt-12 border-t border-softer">
                 <div>
-                    <div class="stat-number font-display text-4xl font-bold text-white mb-2">90+</div>
-                    <div class="text-sm text-gray-500 uppercase tracking-wider mb-3">Day Reputation Cycles</div>
+                    <div class="stat-number font-display text-4xl font-bold mb-2">90+</div>
+                    <div class="text-sm text-muted uppercase tracking-wider mb-3">Day Reputation Cycles</div>
                     <div class="metric-bar"></div>
                 </div>
                 <div>
-                    <div class="stat-number font-display text-4xl font-bold text-white mb-2">73%</div>
-                    <div class="text-sm text-gray-500 uppercase tracking-wider mb-3">Avg Decay Prevention</div>
+                    <div class="stat-number font-display text-4xl font-bold mb-2">73%</div>
+                    <div class="text-sm text-muted uppercase tracking-wider mb-3">Avg Decay Prevention</div>
                     <div class="metric-bar"></div>
                 </div>
                 <div>
-                    <div class="stat-number font-display text-4xl font-bold text-white mb-2">1,247</div>
-                    <div class="text-sm text-gray-500 uppercase tracking-wider mb-3">Domain Rotations/Month</div>
+                    <div class="stat-number font-display text-4xl font-bold mb-2">1,247</div>
+                    <div class="text-sm text-muted uppercase tracking-wider mb-3">Domain Rotations/Month</div>
                     <div class="metric-bar"></div>
                 </div>
                 <div>
-                    <div class="stat-number font-display text-4xl font-bold text-white mb-2">14</div>
-                    <div class="text-sm text-gray-500 uppercase tracking-wider mb-3">ISP Pattern Engines</div>
+                    <div class="stat-number font-display text-4xl font-bold mb-2">14</div>
+                    <div class="text-sm text-muted uppercase tracking-wider mb-3">ISP Pattern Engines</div>
                     <div class="metric-bar"></div>
                 </div>
             </div>
@@ -333,7 +522,7 @@
     </header>
     
     <!-- Problem/Solution Section -->
-    <section class="section-spacing bg-[#0f0f0f]">
+    <section class="section-spacing surface-soft">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="grid lg:grid-cols-2 gap-16 items-center">
                 <article>
@@ -341,97 +530,97 @@
                     <h2 class="font-display font-bold text-4xl lg:text-5xl mb-6 leading-tight">
                         Week 1: Great replies. Week 3: Radio silence.
                     </h2>
-                    <p class="text-lg text-gray-400 leading-relaxed mb-8">
+                    <p class="text-lg text-soft leading-relaxed mb-8">
                         The ISPs are smarter than your warm-up script. They detect robotic patterns, flag predictable behavior, 
-                        and penalize you the moment you scale. Your infrastructure doesn't need fixing—it needs lifecycle management.
+                        and penalize you the moment you scale. Your infrastructure doesn't need fixing. It needs lifecycle management.
                     </p>
                     
                     <div class="space-y-6">
                         <div class="flex gap-4">
-                            <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center">
-                                <span class="material-symbols-outlined text-red-500">trending_down</span>
+                            <div class="flex-shrink-0 w-12 h-12 rounded-xl danger-box flex items-center justify-center">
+                                <span class="material-symbols-outlined text-[var(--danger)]">trending_down</span>
                             </div>
                             <div>
-                                <h3 class="font-semibold text-white mb-1">The Decay Curve</h3>
-                                <p class="text-gray-400 text-sm">Your sender reputation peaks at Day 14, then collapses by Day 21. Every campaign hits the wall.</p>
+                                <h3 class="font-semibold mb-1">The Decay Curve</h3>
+                                <p class="text-soft text-sm">Your sender reputation peaks at Day 14, then collapses by Day 21. Every campaign hits the wall.</p>
                             </div>
                         </div>
                         
                         <div class="flex gap-4">
-                            <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center">
-                                <span class="material-symbols-outlined text-red-500">pattern</span>
+                            <div class="flex-shrink-0 w-12 h-12 rounded-xl danger-box flex items-center justify-center">
+                                <span class="material-symbols-outlined text-[var(--danger)]">pattern</span>
                             </div>
                             <div>
-                                <h3 class="font-semibold text-white mb-1">Pattern Detection</h3>
-                                <p class="text-gray-400 text-sm">Gmail's algorithm caught your warm-up cadence. Your "random" sends aren't random enough.</p>
+                                <h3 class="font-semibold mb-1">Pattern Detection</h3>
+                                <p class="text-soft text-sm">Gmail's algorithm caught your warm-up cadence. Your random sends aren't random enough.</p>
                             </div>
                         </div>
                         
                         <div class="flex gap-4">
-                            <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center">
-                                <span class="material-symbols-outlined text-red-500">restart_alt</span>
+                            <div class="flex-shrink-0 w-12 h-12 rounded-xl danger-box flex items-center justify-center">
+                                <span class="material-symbols-outlined text-[var(--danger)]">restart_alt</span>
                             </div>
                             <div>
-                                <h3 class="font-semibold text-white mb-1">The Reset Trap</h3>
-                                <p class="text-gray-400 text-sm">Burning through domains faster than you can provision them. You're in an infinite loop of setup and failure.</p>
+                                <h3 class="font-semibold mb-1">The Reset Trap</h3>
+                                <p class="text-soft text-sm">Burning through domains faster than you can provision them. You're in an infinite loop of setup and failure.</p>
                             </div>
                         </div>
                     </div>
                 </article>
                 
                 <aside class="relative">
-                    <div class="gradient-border rounded-3xl p-8 bg-[#0a0a0a] glow">
+                    <div class="gradient-border rounded-3xl p-8 surface-card glow">
                         <div class="space-y-6">
-                            <div class="flex items-center justify-between pb-4 border-b border-white/10">
-                                <span class="text-sm text-gray-400 uppercase tracking-wider">Reputation Lifecycle</span>
-                                <span class="text-sm font-semibold text-yellow-500">Active Decay Detected</span>
+                            <div class="flex items-center justify-between pb-4 border-b border-softer">
+                                <span class="text-sm text-soft uppercase tracking-wider">Reputation Lifecycle</span>
+                                <span class="text-sm font-semibold text-[var(--yellow)]">Active Decay Detected</span>
                             </div>
                             
                             <div class="space-y-4">
                                 <div>
                                     <div class="flex justify-between mb-2">
-                                        <span class="text-sm text-white">Week 1-2: Strong Performance</span>
-                                        <span class="text-sm text-green-400">96% Inbox</span>
+                                        <span class="text-sm">Week 1-2: Strong Performance</span>
+                                        <span class="text-sm text-[var(--green)]">96% Inbox</span>
                                     </div>
-                                    <div class="h-2 bg-white/5 rounded-full overflow-hidden">
+                                    <div class="h-2 bg-[var(--white-soft)] rounded-full overflow-hidden">
                                         <div class="h-full bg-green-500 w-[96%]"></div>
                                     </div>
                                 </div>
                                 
                                 <div>
                                     <div class="flex justify-between mb-2">
-                                        <span class="text-sm text-white">Week 3: Pattern Flagged</span>
-                                        <span class="text-sm text-yellow-500">68% Inbox</span>
+                                        <span class="text-sm">Week 3: Pattern Flagged</span>
+                                        <span class="text-sm text-[var(--yellow)]">68% Inbox</span>
                                     </div>
-                                    <div class="h-2 bg-white/5 rounded-full overflow-hidden">
+                                    <div class="h-2 bg-[var(--white-soft)] rounded-full overflow-hidden">
                                         <div class="h-full bg-yellow-500 w-[68%]"></div>
                                     </div>
                                 </div>
                                 
                                 <div>
                                     <div class="flex justify-between mb-2">
-                                        <span class="text-sm text-white">Week 4: Reputation Collapse</span>
-                                        <span class="text-sm text-red-500">31% Inbox</span>
+                                        <span class="text-sm">Week 4: Reputation Collapse</span>
+                                        <span class="text-sm text-[var(--danger)]">31% Inbox</span>
                                     </div>
-                                    <div class="h-2 bg-white/5 rounded-full overflow-hidden">
+                                    <div class="h-2 bg-[var(--white-soft)] rounded-full overflow-hidden">
                                         <div class="h-full bg-red-500 w-[31%]"></div>
                                     </div>
                                 </div>
                                 
                                 <div>
                                     <div class="flex justify-between mb-2">
-                                        <span class="text-sm text-white">Week 5+: Full Spam Filtering</span>
-                                        <span class="text-sm text-red-500">9% Inbox</span>
+                                        <span class="text-sm">Week 5+: Full Spam Filtering</span>
+                                        <span class="text-sm text-[var(--danger)]">9% Inbox</span>
                                     </div>
-                                    <div class="h-2 bg-white/5 rounded-full overflow-hidden">
+                                    <div class="h-2 bg-[var(--white-soft)] rounded-full overflow-hidden">
                                         <div class="h-full bg-red-500 w-[9%]"></div>
                                     </div>
                                 </div>
                             </div>
                             
-                            <div class="pt-6 border-t border-white/10">
-                                <p class="text-xs text-gray-500 mb-4">This is the decay curve we prevent with adaptive rotation.</p>
-                                <button onclick="Calendly.initPopupWidget({url: 'https://calendly.com/rosis/15min?month=2025-09'});return false;" class="w-full px-6 py-3 rounded-full bg-[#B6FF00] text-black font-semibold hover:bg-[#7FFF00] transition-all">
+                            <div class="pt-6 border-t border-softer">
+                                <p class="text-xs text-muted mb-4">This is the decay curve we prevent with adaptive rotation.</p>
+                                <button onclick="Calendly.initPopupWidget({url: 'https://calendly.com/rosis/15min?month=2025-09'});return false;" class="w-full px-6 py-3 rounded-full cta-button font-semibold transition-all">
                                     Analyze My Decay Pattern
                                 </button>
                             </div>
@@ -448,12 +637,12 @@
             <header class="text-center max-w-3xl mx-auto mb-16">
                 <div class="text-sm text-[#B6FF00] font-semibold uppercase tracking-wider mb-4">Lifecycle Management</div>
                 <h2 class="font-display font-bold text-4xl lg:text-5xl mb-6">We don't fix your setup.<br/>We manage your decay.</h2>
-                <p class="text-lg text-gray-400">Two paths: Diagnose the damage, or let us prevent it entirely.</p>
+                <p class="text-lg text-soft">Two paths: diagnose the damage, or let us prevent it entirely.</p>
             </header>
             
             <div class="grid lg:grid-cols-2 gap-8">
                 <!-- Diagnostic Package -->
-                <article class="gradient-border rounded-3xl p-10 bg-[#0f0f0f] hover:glow transition-all duration-300">
+                <article class="gradient-border rounded-3xl p-10 surface-soft hover:glow transition-all duration-300">
                     <header class="flex items-start justify-between mb-8">
                         <div>
                             <div class="inline-block px-3 py-1 bg-[#B6FF00]/10 text-[#B6FF00] text-xs font-semibold rounded-full mb-4 uppercase tracking-wider">
@@ -462,36 +651,36 @@
                             <h3 class="font-display font-bold text-3xl mb-2">Deliverability Decay Diagnostic</h3>
                             <div class="flex items-baseline gap-2">
                                 <span class="font-display font-bold text-5xl">$199</span>
-                                <span class="text-gray-500">one-time</span>
+                                <span class="text-soft">one-time</span>
                             </div>
                         </div>
                     </header>
                     
-                    <p class="text-gray-400 mb-8 leading-relaxed">
+                    <p class="text-soft mb-8 leading-relaxed">
                         We analyze your historical sending data to pinpoint exactly when, where, and why your reputation is decaying. 
-                        You get a forensic breakdown of the collapse—and a roadmap to stop it.
+                        You get a forensic breakdown of the collapse and a roadmap to stop it.
                     </p>
                     
                     <ul class="space-y-4 mb-10" role="list">
                         <li class="flex items-start gap-3">
                             <span class="material-symbols-outlined text-[#B6FF00] text-xl mt-0.5">check_circle</span>
-                            <span class="text-white">7-Day Reputation Decay Analysis</span>
+                            <span>7-Day Reputation Decay Analysis</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <span class="material-symbols-outlined text-[#B6FF00] text-xl mt-0.5">check_circle</span>
-                            <span class="text-white">ISP Pattern Detection Report (Gmail, Outlook, Yahoo)</span>
+                            <span>ISP Pattern Detection Report (Gmail, Outlook, Yahoo)</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <span class="material-symbols-outlined text-[#B6FF00] text-xl mt-0.5">check_circle</span>
-                            <span class="text-white">Behavioral Fingerprint Audit</span>
+                            <span>Behavioral Fingerprint Audit</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <span class="material-symbols-outlined text-[#B6FF00] text-xl mt-0.5">check_circle</span>
-                            <span class="text-white">Rotation Schedule Recommendation</span>
+                            <span>Rotation Schedule Recommendation</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <span class="material-symbols-outlined text-[#B6FF00] text-xl mt-0.5">check_circle</span>
-                            <span class="text-white">48-Hour Delivery</span>
+                            <span>48-Hour Delivery</span>
                         </li>
                     </ul>
                     
@@ -501,7 +690,7 @@
                 </article>
                 
                 <!-- Managed Service -->
-                <article class="gradient-border rounded-3xl p-10 bg-[#0f0f0f] glow-strong relative overflow-hidden">
+                <article class="gradient-border rounded-3xl p-10 surface-soft glow-strong relative overflow-hidden">
                     <div class="absolute top-0 right-0 w-40 h-40 bg-[#B6FF00]/10 rounded-full blur-3xl"></div>
                     
                     <header class="flex items-start justify-between mb-8 relative z-10">
@@ -511,55 +700,55 @@
                             </div>
                             <h3 class="font-display font-bold text-3xl mb-2">The Adaptive Lifecycle Engine</h3>
                             <div class="flex items-baseline gap-2">
-                                <span class="font-display font-bold text-5xl gradient-text">$601</span>
-                                <span class="text-gray-500">/month</span>
+                                <span class="font-display font-bold text-5xl gradient-text">$999</span>
+                                <span class="text-soft">/month</span>
                             </div>
                         </div>
                     </header>
                     
-                    <p class="text-gray-400 mb-8 leading-relaxed relative z-10">
+                    <p class="text-soft mb-8 leading-relaxed relative z-10">
                         The always-on system that keeps you out of spam for months, not days. We rotate your assets, 
-                        mask your patterns, and defend your reputation—before the ISPs trigger a penalty.
+                        mask your patterns, and defend your reputation before the ISPs trigger a penalty.
                     </p>
                     
                     <ul class="space-y-4 mb-8 relative z-10" role="list">
                         <li class="flex items-start gap-3">
                             <span class="material-symbols-outlined text-[#B6FF00] text-xl mt-0.5">check_circle</span>
-                            <span class="text-white font-semibold">Everything in the Diagnostic, plus:</span>
+                            <span class="font-semibold">Everything in the Diagnostic, plus:</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <span class="material-symbols-outlined text-[#B6FF00] text-xl mt-0.5">check_circle</span>
-                            <span class="text-white">Predictive Domain & IP Rotation (Before Decay Triggers)</span>
+                            <span>Predictive Domain &amp; IP Rotation (Before Decay Triggers)</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <span class="material-symbols-outlined text-[#B6FF00] text-xl mt-0.5">check_circle</span>
-                            <span class="text-white">Behavioral Pattern Masking (Human-Simulated Sending)</span>
+                            <span>Behavioral Pattern Masking (Human-Simulated Sending)</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <span class="material-symbols-outlined text-[#B6FF00] text-xl mt-0.5">check_circle</span>
-                            <span class="text-white">Automated Asset Lifecycle Management</span>
+                            <span>Automated Asset Lifecycle Management</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <span class="material-symbols-outlined text-[#B6FF00] text-xl mt-0.5">check_circle</span>
-                            <span class="text-white">Real-Time ISP Algorithm Adaptation (14 Providers)</span>
+                            <span>Real-Time ISP Algorithm Adaptation (14 Providers)</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <span class="material-symbols-outlined text-[#B6FF00] text-xl mt-0.5">check_circle</span>
-                            <span class="text-white">Google Workspace & Microsoft 365 Provisioning</span>
+                            <span>Google Workspace &amp; Microsoft 365 Provisioning</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <span class="material-symbols-outlined text-[#B6FF00] text-xl mt-0.5">check_circle</span>
-                            <span class="text-white">Active Reputation Defense & Recovery</span>
+                            <span>Active Reputation Defense &amp; Recovery</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <span class="material-symbols-outlined text-[#B6FF00] text-xl mt-0.5">check_circle</span>
-                            <span class="text-white">Weekly Performance & Decay Prevention Reports</span>
+                            <span>Weekly Performance &amp; Decay Prevention Reports</span>
                         </li>
                     </ul>
                     
-                    <div class="mb-6 p-4 rounded-xl bg-yellow-500/10 border border-yellow-500/20 relative z-10">
-                        <p class="text-xs text-yellow-200">
-                            <strong>Note:</strong> $601/mo covers system management and monitoring. Domain licenses and email accounts are pass-through costs billed separately based on your infrastructure needs.
+                    <div class="mb-6 p-4 rounded-xl warning-box border border-[color:var(--line)] relative z-10">
+                        <p class="text-xs" style="color: var(--yellow);">
+                            <strong>Note:</strong> $999/mo covers system management and monitoring. Domain licenses and email accounts are pass-through costs billed separately based on your infrastructure needs.
                         </p>
                     </div>
                     
@@ -572,7 +761,7 @@
     </section>
     
     <!-- Trust Signals -->
-    <section class="section-spacing bg-[#0f0f0f]">
+    <section class="section-spacing surface-soft">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <header class="text-center mb-16">
                 <div class="text-sm text-[#B6FF00] font-semibold uppercase tracking-wider mb-4">Advanced Performance Management</div>
@@ -585,8 +774,8 @@
                         <span class="material-symbols-outlined text-[#B6FF00] text-3xl">autorenew</span>
                     </div>
                     <h3 class="font-display font-bold text-2xl mb-3">Predictive Rotation</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">
-                        We rotate domains and IPs before ISP algorithms trigger penalties—extending your sending lifecycle by 400%
+                    <p class="text-soft text-sm leading-relaxed">
+                        We rotate domains and IPs before ISP algorithms trigger penalties, extending your sending lifecycle.
                     </p>
                 </article>
                 
@@ -595,8 +784,8 @@
                         <span class="material-symbols-outlined text-[#B6FF00] text-3xl">psychology</span>
                     </div>
                     <h3 class="font-display font-bold text-2xl mb-3">Behavioral Masking</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">
-                        Human-simulated sending patterns that defeat pattern detection algorithms across 14 major ISPs
+                    <p class="text-soft text-sm leading-relaxed">
+                        Human-simulated sending patterns that reduce obvious pattern detection across major inbox providers.
                     </p>
                 </article>
                 
@@ -605,8 +794,8 @@
                         <span class="material-symbols-outlined text-[#B6FF00] text-3xl">shield_with_heart</span>
                     </div>
                     <h3 class="font-display font-bold text-2xl mb-3">Active Defense</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">
-                        Real-time reputation monitoring and automated recovery protocols that prevent blacklisting before it happens
+                    <p class="text-soft text-sm leading-relaxed">
+                        Real-time reputation monitoring and recovery protocols that help you catch decline before it gets worse.
                     </p>
                 </article>
             </div>
@@ -616,12 +805,12 @@
     <!-- Final CTA Section -->
     <section id="diagnostic" class="section-spacing">
         <div class="max-w-5xl mx-auto px-6 lg:px-8">
-            <div class="gradient-border rounded-3xl p-12 lg:p-16 bg-[#0f0f0f] text-center relative overflow-hidden">
+            <div class="gradient-border rounded-3xl p-12 lg:p-16 surface-soft text-center relative overflow-hidden">
                 <div class="absolute inset-0 grid-pattern opacity-20"></div>
                 <div class="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-[#B6FF00]/20 rounded-full blur-3xl"></div>
                 
                 <div class="relative z-10">
-                    <div class="inline-flex items-center gap-2 px-4 py-2 bg-[#B6FF00]/10 border border-[#B6FF00]/20 rounded-full mb-6">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 soft-pill rounded-full mb-6">
                         <span class="material-symbols-outlined text-[#B6FF00] text-sm">query_stats</span>
                         <span class="text-[#B6FF00] text-xs font-semibold uppercase tracking-wider">48-Hour Turnaround</span>
                     </div>
@@ -631,16 +820,16 @@
                         <span class="gradient-text">Be ready for the wall.</span>
                     </h2>
                     
-                    <p class="text-xl text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed">
+                    <p class="text-xl text-soft mb-10 max-w-2xl mx-auto leading-relaxed">
                         Stop watching your reply rates collapse. Book a call. Get the diagnostic. Implement adaptive rotation. 
-                        Stay in the inbox for months, not days.
+                        Stay in the inbox longer with a system built to manage decay.
                     </p>
                     
                     <button onclick="Calendly.initPopupWidget({url: 'https://calendly.com/rosis/15min?month=2025-09'});return false;" class="px-10 py-5 rounded-full cta-button font-bold text-lg">
                         Book Your Strategy Call
                     </button>
                     
-                    <p class="text-xs text-gray-500 mt-6">
+                    <p class="text-xs text-muted mt-6">
                         15-minute strategy session • No commitment required
                     </p>
                 </div>
@@ -649,7 +838,7 @@
     </section>
     
     <!-- Footer -->
-    <footer class="border-t border-white/10 bg-[#0f0f0f] py-12">
+    <footer class="border-t border-softer surface-soft py-12">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="grid md:grid-cols-4 gap-12 mb-12">
                 <div class="md:col-span-2">
@@ -659,17 +848,17 @@
                         </div>
                         <div>
                             <span class="font-display font-bold text-xl tracking-tight">RORA<span class="text-[#B6FF00]">_</span>TECH</span>
-                            <div class="text-[10px] text-gray-500 uppercase tracking-wider -mt-1">Adaptive Infrastructure</div>
+                            <div class="text-[10px] text-muted uppercase tracking-wider -mt-1">Adaptive Infrastructure</div>
                         </div>
                     </div>
-                    <p class="text-gray-400 text-sm leading-relaxed max-w-sm">
-                        Adaptive Lifecycle Management. We don't fix your DNS—we manage your decay. Advanced performance solutions for scaling outbound teams.
+                    <p class="text-soft text-sm leading-relaxed max-w-sm">
+                        Adaptive Lifecycle Management. We don't fix your DNS. We manage your decay for scaling outbound teams.
                     </p>
                 </div>
                 
                 <nav>
-                    <h4 class="font-semibold text-white mb-4 uppercase text-xs tracking-wider">Services</h4>
-                    <ul class="space-y-3 text-sm text-gray-400">
+                    <h4 class="font-semibold mb-4 uppercase text-xs tracking-wider">Services</h4>
+                    <ul class="space-y-3 text-sm text-soft">
                         <li><a href="#diagnostic" class="hover:text-[#B6FF00] transition-colors">Decay Diagnostic</a></li>
                         <li><a href="#services" class="hover:text-[#B6FF00] transition-colors">Lifecycle Engine</a></li>
                         <li><button onclick="Calendly.initPopupWidget({url: 'https://calendly.com/rosis/15min?month=2025-09'});return false;" class="hover:text-[#B6FF00] transition-colors">Book a Call</button></li>
@@ -677,8 +866,8 @@
                 </nav>
                 
                 <nav>
-                    <h4 class="font-semibold text-white mb-4 uppercase text-xs tracking-wider">Resources</h4>
-                    <ul class="space-y-3 text-sm text-gray-400">
+                    <h4 class="font-semibold mb-4 uppercase text-xs tracking-wider">Resources</h4>
+                    <ul class="space-y-3 text-sm text-soft">
                         <li><a href="#" class="hover:text-[#B6FF00] transition-colors">Case Studies</a></li>
                         <li><a href="#" class="hover:text-[#B6FF00] transition-colors">Technical Docs</a></li>
                         <li><a href="#" class="hover:text-[#B6FF00] transition-colors">Contact</a></li>
@@ -686,11 +875,11 @@
                 </nav>
             </div>
             
-            <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
-                <p class="text-xs text-gray-500">
+            <div class="pt-8 border-t border-softer flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-xs text-muted">
                     © 2025 Rora Tech. All rights reserved.
                 </p>
-                <div class="flex gap-6 text-xs text-gray-500">
+                <div class="flex gap-6 text-xs text-muted">
                     <a href="#" class="hover:text-[#B6FF00] transition-colors">Privacy Policy</a>
                     <a href="#" class="hover:text-[#B6FF00] transition-colors">Terms of Service</a>
                 </div>
@@ -700,6 +889,46 @@
     
     <!-- Calendly Widget Script -->
     <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+
+    <!-- Theme Toggle Script -->
+    <script>
+        const root = document.documentElement;
+        const themeToggleDesktop = document.getElementById('themeToggleDesktop');
+        const themeToggleMobile = document.getElementById('themeToggleMobile');
+        const themeIconDesktop = document.getElementById('themeIconDesktop');
+        const themeIconMobile = document.getElementById('themeIconMobile');
+        const themeLabelDesktop = document.getElementById('themeLabelDesktop');
+
+        function applyTheme(theme) {
+            root.setAttribute('data-theme', theme);
+            root.setAttribute('data-font-mode', theme);
+            root.classList.remove('dark', 'light');
+            root.classList.add(theme);
+            localStorage.setItem('rora-theme', theme);
+
+            const isLight = theme === 'light';
+
+            if (themeIconDesktop) themeIconDesktop.textContent = isLight ? 'light_mode' : 'dark_mode';
+            if (themeIconMobile) themeIconMobile.textContent = isLight ? 'light_mode' : 'dark_mode';
+            if (themeLabelDesktop) themeLabelDesktop.textContent = isLight ? 'Day' : 'Night';
+        }
+
+        function toggleTheme() {
+            const current = root.getAttribute('data-theme') || 'dark';
+            const next = current === 'dark' ? 'light' : 'dark';
+            applyTheme(next);
+        }
+
+        if (themeToggleDesktop) {
+            themeToggleDesktop.addEventListener('click', toggleTheme);
+        }
+
+        if (themeToggleMobile) {
+            themeToggleMobile.addEventListener('click', toggleTheme);
+        }
+
+        applyTheme(root.getAttribute('data-theme') || 'dark');
+    </script>
     
 </body>
 </html>
