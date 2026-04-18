@@ -1,0 +1,44 @@
+# robots.txt for Rora Tech
+# Adaptive Deliverability Infrastructure
+
+User-agent: *
+Allow: /
+
+# Disallow admin/backend areas (if applicable in future)
+Disallow: /admin/
+Disallow: /wp-admin/
+Disallow: /private/
+
+# Disallow internal search results (prevents duplicate content)
+Disallow: /*?s=
+Disallow: /search
+
+# Allow crawling of CSS and JS (important for Google's mobile-first indexing)
+Allow: /*.css
+Allow: /*.js
+
+# Sitemap location
+Sitemap: https://roratech.com/sitemap.xml
+
+# Crawl delay (optional - only if you notice server load issues)
+# Crawl-delay: 1
+
+# Specific directives for major crawlers
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+# Block AI scrapers that don't respect content (optional - uncomment if needed)
+# User-agent: GPTBot
+# Disallow: /
+# 
+# User-agent: ChatGPT-User
+# Disallow: /
+# 
+# User-agent: CCBot
+# Disallow: /

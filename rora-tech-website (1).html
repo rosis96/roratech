@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <!-- Primary Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rora Tech | Adaptive Deliverability Infrastructure for B2B Outbound Teams</title>
+    <meta name="description" content="Stop email deliverability decay in Week 3. Rora Tech provides adaptive lifecycle management for B2B outbound teams. Predictive domain rotation and behavioral masking keep you in the inbox.">
+    <meta name="keywords" content="email deliverability decay, B2B outbound infrastructure, domain reputation recovery, deliverability lifecycle management, email warm-up decay, sender reputation management">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://roratech.com/">
+    <meta property="og:title" content="Rora Tech | Adaptive Deliverability Infrastructure">
+    <meta property="og:description" content="Stop email deliverability decay in Week 3. Advanced lifecycle management for scaling outbound teams.">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://roratech.com/">
+    <meta property="twitter:title" content="Rora Tech | Adaptive Deliverability Infrastructure">
+    <meta property="twitter:description" content="Stop email deliverability decay in Week 3. Advanced lifecycle management for scaling outbound teams.">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://roratech.com/">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
+    
+    <!-- Stylesheets -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    
+    <!-- Calendly Widget CSS -->
+    <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        
+        .font-display {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #B6FF00 0%, #7FFF00 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .gradient-border {
+            position: relative;
+            border: 1px solid transparent;
+            background: linear-gradient(#0a0a0a, #0a0a0a) padding-box,
+                        linear-gradient(135deg, #B6FF00, #7FFF00) border-box;
+        }
+        
+        .glow {
+            box-shadow: 0 0 40px rgba(182, 255, 0, 0.15);
+        }
+        
+        .glow-strong {
+            box-shadow: 0 0 60px rgba(182, 255, 0, 0.3);
+        }
+        
+        .stat-number {
+            font-variant-numeric: tabular-nums;
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(182, 255, 0, 0.2);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(182, 255, 0, 0.4);
+            }
+        }
+        
+        .pulse-glow {
+            animation: pulse-glow 3s ease-in-out infinite;
+        }
+        
+        .grid-pattern {
+            background-image: 
+                linear-gradient(rgba(182, 255, 0, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(182, 255, 0, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+        
+        .section-spacing {
+            padding: 120px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .section-spacing {
+                padding: 60px 0;
+            }
+        }
+        
+        .metric-bar {
+            height: 4px;
+            background: linear-gradient(90deg, #B6FF00 0%, transparent 100%);
+        }
+        
+        nav a {
+            transition: color 0.2s ease;
+        }
+        
+        nav a:hover {
+            color: #B6FF00;
+        }
+        
+        .cta-button {
+            background: linear-gradient(135deg, #B6FF00 0%, #7FFF00 100%);
+            color: #0a0a0a;
+            transition: all 0.3s ease;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(182, 255, 0, 0.4);
+        }
+        
+        .blog-card {
+            transition: all 0.3s ease;
+        }
+        
+        .blog-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 0 40px rgba(182, 255, 0, 0.2);
+        }
+        
+        /* Email Popup Modal Styles */
+        .email-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .email-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+        
+        .email-modal-content {
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+        
+        .email-modal.active .email-modal-content {
+            transform: scale(1);
+        }
+        
+        .modal-close {
+            transition: all 0.2s ease;
+        }
+        
+        .modal-close:hover {
+            transform: rotate(90deg);
+        }
+    </style>
+    
+    <!-- Schema.org Markup for Organization -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Rora Tech",
+      "description": "Adaptive Deliverability Infrastructure for B2B outbound teams. We prevent email deliverability decay through predictive lifecycle management.",
+      "url": "https://roratech.com",
+      "logo": "https://roratech.com/logo.png",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "Sales",
+        "url": "https://calendly.com/rosis/15min"
+      },
+      "sameAs": [
+        "https://linkedin.com/company/roratech",
+        "https://twitter.com/roratech"
+      ],
+      "areaServed": "Worldwide",
+      "serviceType": [
+        "Email Deliverability Management",
+        "Sender Reputation Management",
+        "Domain Lifecycle Management",
+        "B2B Outbound Infrastructure"
+      ]
+    }
+    </script>
+    
+    <!-- Schema.org Markup for Service -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": "Email Deliverability Infrastructure Management",
+      "provider": {
+        "@type": "Organization",
+        "name": "Rora Tech"
+      },
+      "description": "Adaptive lifecycle management preventing email deliverability decay for B2B outbound teams. Includes predictive domain rotation, behavioral masking, and continuous reputation monitoring.",
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "Deliverability Decay Diagnostic",
+          "price": "199",
+          "priceCurrency": "USD",
+          "description": "7-day reputation decay analysis with ISP pattern detection and rotation blueprint"
+        },
+        {
+          "@type": "Offer",
+          "name": "Adaptive Lifecycle Engine",
+          "price": "999",
+          "priceCurrency": "USD",
+          "priceSpecification": {
+            "@type": "UnitPriceSpecification",
+            "price": "999",
+            "priceCurrency": "USD",
+            "billingIncrement": "Month"
+          },
+          "description": "Full-managed deliverability lifecycle system with predictive rotation and behavioral masking"
+        }
+      ]
+    }
+    </script>
+    
+    <!-- Schema.org FAQ Markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is email deliverability decay?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Email deliverability decay occurs when sender reputation degrades over time, typically hitting in Week 3-4 of sending. ISP algorithms detect sending patterns and begin filtering emails to spam, even when DNS configuration is perfect."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does predictive domain rotation work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Predictive domain rotation involves strategically rotating sending domains and IPs before ISP algorithms trigger spam penalties. This extends the sending lifecycle by preventing pattern detection and reputation decay."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is included in the $999/month Adaptive Lifecycle Engine?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The Adaptive Lifecycle Engine includes automated domain rotation, behavioral pattern masking, real-time ISP monitoring, and continuous reputation management. Domain licenses and email accounts are pass-through costs billed separately."
+          }
+        }
+      ]
+    }
+    </script>
+</head>
+
+<body class="antialiased">
+    
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-[#0a0a0a]/80 backdrop-blur-xl border-b border-white/5" role="navigation" aria-label="Main navigation">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-[#B6FF00] to-[#7FFF00] flex items-center justify-center">
+                        <span class="material-symbols-outlined text-black text-2xl">shield</span>
+                    </div>
+                    <div>
+                        <span class="font-display font-bold text-xl tracking-tight">RORA<span class="text-[#B6FF00]">_</span>TECH</span>
+                        <div class="text-[10px] text-gray-500 uppercase tracking-wider -mt-1">Adaptive Infrastructure</div>
+                    </div>
+                </div>
+                
+                <div class="hidden md:flex items-center gap-8 text-sm font-medium">
+                    <a href="#services" class="text-gray-400 hover:text-white">Services</a>
+                    <a href="#diagnostic" class="text-gray-400 hover:text-white">Diagnostic</a>
+                    <a href="#intelligence" class="text-gray-400 hover:text-white">Intelligence</a>
+                    <button onclick="Calendly.initPopupWidget({url: 'https://calendly.com/rosis/15min?month=2025-09'});return false;" class="px-6 py-2.5 rounded-full cta-button font-semibold text-sm">
+                        Book a Call
+                    </button>
+                </div>
+                
+                <button class="md:hidden text-gray-400" aria-label="Open menu">
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <header class="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden">
+        <div class="absolute inset-0 grid-pattern opacity-30"></div>
+        <div class="absolute top-20 right-0 w-96 h-96 bg-[#B6FF00]/10 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-[#7FFF00]/10 rounded-full blur-3xl"></div>
+        
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+            <div class="max-w-4xl">
+                <div class="inline-flex items-center gap-2 px-4 py-2 bg-[#B6FF00]/10 border border-[#B6FF00]/20 rounded-full mb-8">
+                    <span class="w-2 h-2 bg-[#B6FF00] rounded-full animate-pulse"></span>
+                    <span class="text-[#B6FF00] text-xs font-semibold uppercase tracking-wider">Adaptive Lifecycle Management</span>
+                </div>
+                
+                <h1 class="font-display font-bold text-5xl lg:text-7xl leading-tight mb-6">
+                    You did the warm-up. You set the DNS.<br/>
+                    <span class="gradient-text">So why did your reply rates die in Week 3?</span>
+                </h1>
+                
+                <p class="text-xl text-gray-400 leading-relaxed mb-12 max-w-2xl">
+                    You hit the Reputation Wall. Every sender does. The ISPs caught your pattern, flagged your behavior, 
+                    and you're back in spam—even though your "setup" was perfect. We manage the decay, not the DNS.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <button onclick="Calendly.initPopupWidget({url: 'https://calendly.com/rosis/15min?month=2025-09'});return false;" class="px-8 py-4 rounded-full cta-button font-semibold text-center">
+                        Book Your Strategy Call
+                    </button>
+                    <a href="#intelligence" class="px-8 py-4 rounded-full border border-white/10 bg-white/5 text-white font-semibold hover:bg-white/10 transition-all text-center">
+                        Read Intelligence Feed
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Stats Bar -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 mt-20 pt-12 border-t border-white/10">
+                <div>
+                    <div class="stat-number font-display text-4xl font-bold text-white mb-2">90+</div>
+                    <div class="text-sm text-gray-500 uppercase tracking-wider mb-3">Day Reputation Cycles</div>
+                    <div class="metric-bar"></div>
+                </div>
+                <div>
+                    <div class="stat-number font-display text-4xl font-bold text-white mb-2">73%</div>
+                    <div class="text-sm text-gray-500 uppercase tracking-wider mb-3">Avg Decay Prevention</div>
+                    <div class="metric-bar"></div>
+                </div>
+                <div>
+                    <div class="stat-number font-display text-4xl font-bold text-white mb-2">1,247</div>
+                    <div class="text-sm text-gray-500 uppercase tracking-wider mb-3">Domain Rotations/Month</div>
+                    <div class="metric-bar"></div>
+                </div>
+                <div>
+                    <div class="stat-number font-display text-4xl font-bold text-white mb-2">14</div>
+                    <div class="text-sm text-gray-500 uppercase tracking-wider mb-3">ISP Pattern Engines</div>
+                    <div class="metric-bar"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Problem/Solution Section -->
+    <section class="section-spacing bg-[#0f0f0f]">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <article>
+                    <div class="text-sm text-[#B6FF00] font-semibold uppercase tracking-wider mb-4">The Reputation Wall</div>
+                    <h2 class="font-display font-bold text-4xl lg:text-5xl mb-6 leading-tight">
+                        Week 1: Great replies. Week 3: Radio silence.
+                    </h2>
+                    <p class="text-lg text-gray-400 leading-relaxed mb-8">
+                        The ISPs are smarter than your warm-up script. They detect robotic patterns, flag predictable behavior, 
+                        and penalize you the moment you scale. Your infrastructure doesn't need fixing—it needs lifecycle management.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-red-500">trending_down</span>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-white mb-1">The Decay Curve</h3>
+                                <p class="text-gray-400 text-sm">Your sender reputation peaks at Day 14, then collapses by Day 21. Every campaign hits the wall.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-red-500">pattern</span>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-white mb-1">Pattern Detection</h3>
+                                <p class="text-gray-400 text-sm">Gmail's algorithm caught your warm-up cadence. Your "random" sends aren't random enough.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-red-500">restart_alt</span>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-white mb-1">The Reset Trap</h3>
+                                <p class="text-gray-400 text-sm">Burning through domains faster than you can provision them. You're in an infinite loop of setup and failure.</p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                
+                <aside class="relative">
+                    <div class="gradient-border rounded-3xl p-8 bg-[#0a0a0a] glow">
+                        <div class="space-y-6">
+                            <div class="flex items-center justify-between pb-4 border-b border-white/10">
+                                <span class="text-sm text-gray-400 uppercase tracking-wider">Reputation Lifecycle</span>
+                                <span class="text-sm font-semibold text-yellow-500">Active Decay Detected</span>
+                            </div>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <div class="flex justify-between mb-2">
+                                        <span class="text-sm text-white">Week 1-2: Strong Performance</span>
+                                        <span class="text-sm text-green-400">96% Inbox</span>
+                                    </div>
+                                    <div class="h-2 bg-white/5 rounded-full overflow-hidden">
+                                        <div class="h-full bg-green-500 w-[96%]"></div>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <div class="flex justify-between mb-2">
+                                        <span class="text-sm text-white">Week 3: Pattern Flagged</span>
+                                        <span class="text-sm text-yellow-500">68% Inbox</span>
+                                    </div>
+                                    <div class="h-2 bg-white/5 rounded-full overflow-hidden">
+                                        <div class="h-full bg-yellow-500 w-[68%]"></div>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <div class="flex justify-between mb-2">
+                                        <span class="text-sm text-white">Week 4: Reputation Collapse</span>
+                                        <span class="text-sm text-red-500">31% Inbox</span>
+                                    </div>
+                                    <div class="h-2 bg-white/5 rounded-full overflow-hidden">
+                                        <div class="h-full bg-red-500 w-[31%]"></div>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <div class="flex justify-between mb-2">
+                                        <span class="text-sm text-white">Week 5+: Full Spam Filtering</span>
+                                        <span class="text-sm text-red-500">9% Inbox</span>
+                                    </div>
+                                    <div class="h-2 bg-white/5 rounded-full overflow-hidden">
+                                        <div class="h-full bg-red-500 w-[9%]"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="pt-6 border-t border-white/10">
+                                <p class="text-xs text-gray-500 mb-4">This is the decay curve we prevent with adaptive rotation.</p>
+                                <button onclick="Calendly.initPopupWidget({url: 'https://calendly.com/rosis/15min?month=2025-09'});return false;" class="w-full px-6 py-3 rounded-full bg-[#B6FF00] text-black font-semibold hover:bg-[#7FFF00] transition-all">
+                                    Analyze My Decay Pattern
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Services Section -->
+    <section id="services" class="section-spacing">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <header class="text-center max-w-3xl mx-auto mb-16">
+                <div class="text-sm text-[#B6FF00] font-semibold uppercase tracking-wider mb-4">Lifecycle Management</div>
+                <h2 class="font-display font-bold text-4xl lg:text-5xl mb-6">We don't fix your setup.<br/>We manage your decay.</h2>
+                <p class="text-lg text-gray-400">Two paths: Diagnose the damage, or let us prevent it entirely.</p>
+            </header>
+            
+            <div class="grid lg:grid-cols-2 gap-8">
+                <!-- Diagnostic Package -->
+                <article class="gradient-border rounded-3xl p-10 bg-[#0f0f0f] hover:glow transition-all duration-300">
+                    <header class="flex items-start justify-between mb-8">
+                        <div>
+                            <div class="inline-block px-3 py-1 bg-[#B6FF00]/10 text-[#B6FF00] text-xs font-semibold rounded-full mb-4 uppercase tracking-wider">
+                                Diagnostic
+                            </div>
+                            <h3 class="font-display font-bold text-3xl mb-2">Deliverability Decay Diagnostic</h3>
+                            <div class="flex items-baseline gap-2">
+                                <span class="font-display font-bold text-5xl">$199</span>
+                                <span class="text-gray-500">one-time</span>
+                            </div>
+                        </div>
+                    </header>
+                    
+                    <p class="text-gray-400 mb-8 leading-relaxed">
+                        We analyze your historical sending data to pinpoint exactly when, where, and why your reputation is decaying. 
+                        You get a forensic breakdown of the collapse—and a roadmap to stop it.
+                    </p>
+                    
+                    <ul class="space-y-4 mb-10" role="list">
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-outlined text-[#B6FF00] text-xl mt-0.5">check_circle</span>
+                            <span class="text-white">7-Day Reputation Decay Analysis</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-outlined text-[#B6FF00] text-xl mt-0.5">check_circle</span>
+                            <span class="text-white">ISP Pattern Detection Report (Gmail, Outlook, Yahoo)</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-outlined text-[#B6FF00] text-xl mt-0.5">check_circle</span>
+                            <span class="text-white">Behavioral Fingerprint Audit</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-outlined text-[#B6FF00] text-xl mt-0.5">check_circle</span>
+                            <span class="text-white">Rotation Schedule Recommendation</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-outlined text-[#B6FF00] text-xl mt-0.5">check_circle</span>
+                            <span class="text-white">48-Hour Delivery</span>
+                        </li>
+                    </ul>
+                    
+                    <button onclick="Calendly.initPopupWidget({url: 'https://calendly.com/rosis/15min?month=2025-09'});return false;" class="block w-full px-8 py-4 rounded-full border-2 border-[#B6FF00] text-[#B6FF00] font-semibold hover:bg-[#B6FF00] hover:text-black transition-all text-center">
+                        Book Diagnostic Call
+                    </button>
+                </article>
+                
+                <!-- Managed Service -->
+                <article class="gradient-border rounded-3xl p-10 bg-[#0f0f0f] glow-strong relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-40 h-40 bg-[#B6FF00]/10 rounded-full blur-3xl"></div>
+                    
+                    <header class="flex items-start justify-between mb-8 relative z-10">
+                        <div>
+                            <div class="inline-block px-3 py-1 bg-[#B6FF00] text-black text-xs font-bold rounded-full mb-4 uppercase tracking-wider">
+                                Adaptive System
+                            </div>
+                            <h3 class="font-display font-bold text-3xl mb-2">The Adaptive Lifecycle Engine</h3>
+                            <div class="flex items-baseline gap-2">
+                                <span class="font-display font-bold text-5xl gradient-text">$999</span>
+                                <span class="text-gray-500">/month</span>
+                            </div>
+                        </div>
+                    </header>
+                    
+                    <p class="text-gray-400 mb-8 leading-relaxed relative z-10">
+                        The always-on system that keeps you out of spam for months, not days. We rotate your assets, 
+                        mask your patterns, and defend your reputation—before the ISPs trigger a penalty.
+                    </p>
+                    
+                    <ul class="space-y-4 mb-8 relative z-10" role="list">
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-outlined text-[#B6FF00] text-xl mt-0.5">check_circle</span>
+                            <span class="text-white font-semibold">Everything in the Diagnostic, plus:</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-outlined text-[#B6FF00] text-xl mt-0.5">check_circle</span>
+                            <span class="text-white">Predictive Domain & IP Rotation (Before Decay Triggers)</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-outlined text-[#B6FF00] text-xl mt-0.5">check_circle</span>
+                            <span class="text-white">Behavioral Pattern Masking (Human-Simulated Sending)</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-outlined text-[#B6FF00] text-xl mt-0.5">check_circle</span>
+                            <span class="text-white">Automated Asset Lifecycle Management</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-outlined text-[#B6FF00] text-xl mt-0.5">check_circle</span>
+                            <span class="text-white">Real-Time ISP Algorithm Adaptation (14 Providers)</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-outlined text-[#B6FF00] text-xl mt-0.5">check_circle</span>
+                            <span class="text-white">Google Workspace & Microsoft 365 Provisioning</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-outlined text-[#B6FF00] text-xl mt-0.5">check_circle</span>
+                            <span class="text-white">Active Reputation Defense & Recovery</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-outlined text-[#B6FF00] text-xl mt-0.5">check_circle</span>
+                            <span class="text-white">Weekly Performance & Decay Prevention Reports</span>
+                        </li>
+                    </ul>
+                    
+                    <div class="mb-6 p-4 rounded-xl bg-yellow-500/10 border border-yellow-500/20 relative z-10">
+                        <p class="text-xs text-yellow-200">
+                            <strong>Note:</strong> $999/mo covers system management and monitoring. Domain licenses and email accounts are pass-through costs billed separately based on your infrastructure needs.
+                        </p>
+                    </div>
+                    
+                    <button onclick="Calendly.initPopupWidget({url: 'https://calendly.com/rosis/15min?month=2025-09'});return false;" class="block w-full px-8 py-4 rounded-full cta-button font-semibold text-center relative z-10">
+                        Start Lifecycle Engine
+                    </button>
+                </article>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Deliverability Intelligence Feed (Blog Section) -->
+    <section id="intelligence" class="section-spacing bg-[#0f0f0f]">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <header class="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-12">
+                <div class="mb-8 lg:mb-0">
+                    <div class="text-sm text-[#B6FF00] font-semibold uppercase tracking-wider mb-4">Knowledge Base</div>
+                    <h2 class="font-display font-bold text-4xl lg:text-5xl mb-4">Deliverability Intelligence Feed</h2>
+                    <p class="text-lg text-gray-400 max-w-2xl">
+                        Advanced insights into reputation decay, ISP algorithms, and lifecycle management strategies.
+                    </p>
+                </div>
+            </header>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Blog Post 1 -->
+                <article class="blog-card gradient-border rounded-2xl overflow-hidden bg-[#0a0a0a] group cursor-pointer">
+                    <div class="aspect-video bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-[#B6FF00] text-6xl opacity-20">analytics</span>
+                        </div>
+                        <div class="absolute top-4 left-4 px-3 py-1 bg-red-500/90 backdrop-blur-sm rounded-full text-xs text-white font-semibold uppercase">
+                            Critical
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <time class="text-xs text-gray-500 uppercase tracking-wider" datetime="2025-01-15">Jan 15, 2025</time>
+                        <h3 class="font-display font-bold text-xl mt-2 mb-3 group-hover:text-[#B6FF00] transition-colors">
+                            The Week 3 Wall: Why Your Deliverability Collapses After Perfect Setup
+                        </h3>
+                        <p class="text-sm text-gray-400 mb-4 leading-relaxed">
+                            Understanding the reputation decay curve and why ISP algorithms flag even perfectly configured domains after 14-21 days of sending.
+                        </p>
+                        <div class="flex items-center gap-4 text-xs text-gray-500">
+                            <span class="flex items-center gap-1">
+                                <span class="material-symbols-outlined text-base">schedule</span>
+                                8 min read
+                            </span>
+                            <span class="flex items-center gap-1">
+                                <span class="material-symbols-outlined text-base">visibility</span>
+                                2,847 views
+                            </span>
+                        </div>
+                    </div>
+                </article>
+                
+                <!-- Blog Post 2 -->
+                <article class="blog-card gradient-border rounded-2xl overflow-hidden bg-[#0a0a0a] group cursor-pointer">
+                    <div class="aspect-video bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-[#B6FF00] text-6xl opacity-20">autorenew</span>
+                        </div>
+                        <div class="absolute top-4 left-4 px-3 py-1 bg-blue-500/90 backdrop-blur-sm rounded-full text-xs text-white font-semibold uppercase">
+                            Strategy
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <time class="text-xs text-gray-500 uppercase tracking-wider" datetime="2025-01-12">Jan 12, 2025</time>
+                        <h3 class="font-display font-bold text-xl mt-2 mb-3 group-hover:text-[#B6FF00] transition-colors">
+                            Predictive Rotation: The Science of Pre-Emptive Domain Management
+                        </h3>
+                        <p class="text-sm text-gray-400 mb-4 leading-relaxed">
+                            How to rotate sending assets before ISP pattern detection triggers spam filtering. A deep dive into rotation schedules and lifecycle timing.
+                        </p>
+                        <div class="flex items-center gap-4 text-xs text-gray-500">
+                            <span class="flex items-center gap-1">
+                                <span class="material-symbols-outlined text-base">schedule</span>
+                                12 min read
+                            </span>
+                            <span class="flex items-center gap-1">
+                                <span class="material-symbols-outlined text-base">visibility</span>
+                                1,923 views
+                            </span>
+                        </div>
+                    </div>
+                </article>
+                
+                <!-- Blog Post 3 -->
+                <article class="blog-card gradient-border rounded-2xl overflow-hidden bg-[#0a0a0a] group cursor-pointer">
+                    <div class="aspect-video bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-[#B6FF00] text-6xl opacity-20">fingerprint</span>
+                        </div>
+                        <div class="absolute top-4 left-4 px-3 py-1 bg-purple-500/90 backdrop-blur-sm rounded-full text-xs text-white font-semibold uppercase">
+                            Technical
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <time class="text-xs text-gray-500 uppercase tracking-wider" datetime="2025-01-08">Jan 08, 2025</time>
+                        <h3 class="font-display font-bold text-xl mt-2 mb-3 group-hover:text-[#B6FF00] transition-colors">
+                            Behavioral Fingerprinting: How Gmail Detects Your Warm-up Pattern
+                        </h3>
+                        <p class="text-sm text-gray-400 mb-4 leading-relaxed">
+                            Inside Gmail's machine learning models that identify automated sending behavior. What triggers the flags and how to mask your patterns.
+                        </p>
+                        <div class="flex items-center gap-4 text-xs text-gray-500">
+                            <span class="flex items-center gap-1">
+                                <span class="material-symbols-outlined text-base">schedule</span>
+                                15 min read
+                            </span>
+                            <span class="flex items-center gap-1">
+                                <span class="material-symbols-outlined text-base">visibility</span>
+                                3,102 views
+                            </span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            
+            <div class="text-center mt-12">
+                <p class="text-gray-500 text-sm">More intelligence coming soon. Subscribe to get notified.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Trust Signals -->
+    <section class="section-spacing bg-[#0f0f0f]">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <header class="text-center mb-16">
+                <div class="text-sm text-[#B6FF00] font-semibold uppercase tracking-wider mb-4">Advanced Performance Management</div>
+                <h2 class="font-display font-bold text-3xl lg:text-4xl">We solve what others can't see</h2>
+            </header>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <article class="text-center p-8">
+                    <div class="w-16 h-16 rounded-2xl bg-[#B6FF00]/10 flex items-center justify-center mx-auto mb-6">
+                        <span class="material-symbols-outlined text-[#B6FF00] text-3xl">autorenew</span>
+                    </div>
+                    <h3 class="font-display font-bold text-2xl mb-3">Predictive Rotation</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        We rotate domains and IPs before ISP algorithms trigger penalties—extending your sending lifecycle by 400%
+                    </p>
+                </article>
+                
+                <article class="text-center p-8">
+                    <div class="w-16 h-16 rounded-2xl bg-[#B6FF00]/10 flex items-center justify-center mx-auto mb-6">
+                        <span class="material-symbols-outlined text-[#B6FF00] text-3xl">psychology</span>
+                    </div>
+                    <h3 class="font-display font-bold text-2xl mb-3">Behavioral Masking</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Human-simulated sending patterns that defeat pattern detection algorithms across 14 major ISPs
+                    </p>
+                </article>
+                
+                <article class="text-center p-8">
+                    <div class="w-16 h-16 rounded-2xl bg-[#B6FF00]/10 flex items-center justify-center mx-auto mb-6">
+                        <span class="material-symbols-outlined text-[#B6FF00] text-3xl">shield_with_heart</span>
+                    </div>
+                    <h3 class="font-display font-bold text-2xl mb-3">Active Defense</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Real-time reputation monitoring and automated recovery protocols that prevent blacklisting before it happens
+                    </p>
+                </article>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Final CTA Section -->
+    <section id="diagnostic" class="section-spacing">
+        <div class="max-w-5xl mx-auto px-6 lg:px-8">
+            <div class="gradient-border rounded-3xl p-12 lg:p-16 bg-[#0f0f0f] text-center relative overflow-hidden">
+                <div class="absolute inset-0 grid-pattern opacity-20"></div>
+                <div class="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-[#B6FF00]/20 rounded-full blur-3xl"></div>
+                
+                <div class="relative z-10">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 bg-[#B6FF00]/10 border border-[#B6FF00]/20 rounded-full mb-6">
+                        <span class="material-symbols-outlined text-[#B6FF00] text-sm">query_stats</span>
+                        <span class="text-[#B6FF00] text-xs font-semibold uppercase tracking-wider">48-Hour Turnaround</span>
+                    </div>
+                    
+                    <h2 class="font-display font-bold text-4xl lg:text-5xl mb-6">
+                        Week 3 is coming.<br/>
+                        <span class="gradient-text">Be ready for the wall.</span>
+                    </h2>
+                    
+                    <p class="text-xl text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed">
+                        Stop watching your reply rates collapse. Book a call. Get the diagnostic. Implement adaptive rotation. 
+                        Stay in the inbox for months, not days.
+                    </p>
+                    
+                    <button onclick="Calendly.initPopupWidget({url: 'https://calendly.com/rosis/15min?month=2025-09'});return false;" class="px-10 py-5 rounded-full cta-button font-bold text-lg">
+                        Book Your Strategy Call
+                    </button>
+                    
+                    <p class="text-xs text-gray-500 mt-6">
+                        15-minute strategy session • No commitment required
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="border-t border-white/10 bg-[#0f0f0f] py-12">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-12 mb-12">
+                <div class="md:col-span-2">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-[#B6FF00] to-[#7FFF00] flex items-center justify-center">
+                            <span class="material-symbols-outlined text-black text-2xl">shield</span>
+                        </div>
+                        <div>
+                            <span class="font-display font-bold text-xl tracking-tight">RORA<span class="text-[#B6FF00]">_</span>TECH</span>
+                            <div class="text-[10px] text-gray-500 uppercase tracking-wider -mt-1">Adaptive Infrastructure</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed max-w-sm">
+                        Adaptive Lifecycle Management. We don't fix your DNS—we manage your decay. Advanced performance solutions for scaling outbound teams.
+                    </p>
+                </div>
+                
+                <nav>
+                    <h4 class="font-semibold text-white mb-4 uppercase text-xs tracking-wider">Services</h4>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="#diagnostic" class="hover:text-[#B6FF00] transition-colors">Decay Diagnostic</a></li>
+                        <li><a href="#services" class="hover:text-[#B6FF00] transition-colors">Lifecycle Engine</a></li>
+                        <li><a href="#intelligence" class="hover:text-[#B6FF00] transition-colors">Intelligence Feed</a></li>
+                        <li><button onclick="Calendly.initPopupWidget({url: 'https://calendly.com/rosis/15min?month=2025-09'});return false;" class="hover:text-[#B6FF00] transition-colors">Book a Call</button></li>
+                    </ul>
+                </nav>
+                
+                <nav>
+                    <h4 class="font-semibold text-white mb-4 uppercase text-xs tracking-wider">Resources</h4>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="#intelligence" class="hover:text-[#B6FF00] transition-colors">Intelligence Feed</a></li>
+                        <li><a href="#" class="hover:text-[#B6FF00] transition-colors">Case Studies</a></li>
+                        <li><a href="#" class="hover:text-[#B6FF00] transition-colors">Technical Docs</a></li>
+                        <li><a href="#" class="hover:text-[#B6FF00] transition-colors">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+            
+            <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-xs text-gray-500">
+                    © 2025 Rora Tech. All rights reserved.
+                </p>
+                <div class="flex gap-6 text-xs text-gray-500">
+                    <a href="#" class="hover:text-[#B6FF00] transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-[#B6FF00] transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Email Popup Modal -->
+    <div id="emailModal" class="email-modal items-center justify-center px-4">
+        <div class="email-modal-content relative max-w-lg w-full">
+            <div class="gradient-border rounded-3xl p-10 bg-[#0a0a0a] relative">
+                <button onclick="closeEmailModal()" class="modal-close absolute top-4 right-4 w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-all">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+                
+                <div class="text-center mb-8">
+                    <div class="w-16 h-16 rounded-2xl bg-[#B6FF00]/10 flex items-center justify-center mx-auto mb-6">
+                        <span class="material-symbols-outlined text-[#B6FF00] text-4xl">shield</span>
+                    </div>
+                    <h3 class="font-display font-bold text-3xl mb-3">Stop the Week 3 Collapse</h3>
+                    <p class="text-gray-400">
+                        Get the <strong class="text-white">Deliverability Decay Prevention Protocol</strong> — our complete guide to extending sender reputation beyond 90 days.
+                    </p>
+                </div>
+                
+                <form id="emailCaptureForm" class="space-y-4">
+                    <input 
+                        type="email" 
+                        id="emailInput"
+                        placeholder="Your work email" 
+                        class="w-full px-6 py-4 rounded-full bg-white/5 border border-white/10 text-white placeholder:text-gray-500 focus:border-[#B6FF00] focus:outline-none transition-all"
+                        required
+                    />
+                    <button type="submit" class="w-full px-8 py-4 rounded-full cta-button font-semibold text-lg">
+                        Send Me The Protocol
+                    </button>
+                    <p class="text-xs text-gray-500 text-center">
+                        We respect your inbox. No spam, just actionable deliverability insights.
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Calendly Widget Script -->
+    <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+    
+    <!-- Email Popup & Scroll Trigger Script -->
+    <script>
+        // Email popup trigger at 50% scroll
+        let emailModalShown = false;
+        
+        window.addEventListener('scroll', function() {
+            if (emailModalShown) return;
+            
+            const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            
+            if (scrollPercent >= 50) {
+                showEmailModal();
+                emailModalShown = true;
+            }
+        });
+        
+        function showEmailModal() {
+            const modal = document.getElementById('emailModal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeEmailModal() {
+            const modal = document.getElementById('emailModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        // Close modal on backdrop click
+        document.getElementById('emailModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeEmailModal();
+            }
+        });
+        
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeEmailModal();
+            }
+        });
+        
+        // Email form submission
+        document.getElementById('emailCaptureForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('emailInput').value;
+            
+            // Here you would integrate with your email service provider
+            // For now, we'll just log it and show a success message
+            console.log('Email captured:', email);
+            
+            // Replace form with success message
+            this.innerHTML = `
+                <div class="text-center py-8">
+                    <span class="material-symbols-outlined text-[#B6FF00] text-6xl mb-4 block">check_circle</span>
+                    <h4 class="font-display font-bold text-2xl mb-2">Check Your Inbox!</h4>
+                    <p class="text-gray-400">The Decay Prevention Protocol is on its way to ${email}</p>
+                </div>
+            `;
+            
+            // Close modal after 3 seconds
+            setTimeout(closeEmailModal, 3000);
+        });
+    </script>
+    
+</body>
+</html>

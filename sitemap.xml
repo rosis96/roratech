@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+    <!-- Homepage - Highest Priority -->
+    <url>
+        <loc>https://roratech.com/</loc>
+        <lastmod>2025-01-15</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+    </url>
+
+    <!-- Services Section - High Priority Money Pages -->
+    <url>
+        <loc>https://roratech.com/#services</loc>
+        <lastmod>2025-01-15</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <!-- Deliverability Decay Diagnostic - Core Offering -->
+    <url>
+        <loc>https://roratech.com/diagnostic</loc>
+        <lastmod>2025-01-15</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <!-- Adaptive Lifecycle Engine - Core Offering -->
+    <url>
+        <loc>https://roratech.com/lifecycle-engine</loc>
+        <lastmod>2025-01-15</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <!-- Deliverability Intelligence Feed (Blog) - Updated Frequently -->
+    <url>
+        <loc>https://roratech.com/#intelligence</loc>
+        <lastmod>2025-01-15</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://roratech.com/intelligence</loc>
+        <lastmod>2025-01-15</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- Blog Posts - Individual Articles -->
+    <url>
+        <loc>https://roratech.com/intelligence/week-3-wall-deliverability-collapse</loc>
+        <lastmod>2025-01-15</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+
+    <url>
+        <loc>https://roratech.com/intelligence/predictive-rotation-domain-management</loc>
+        <lastmod>2025-01-12</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+
+    <url>
+        <loc>https://roratech.com/intelligence/behavioral-fingerprinting-gmail-detection</loc>
+        <lastmod>2025-01-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+
+    <!-- Future Blog Post Placeholders (Add as you publish) -->
+    <!-- 
+    <url>
+        <loc>https://roratech.com/intelligence/isp-algorithm-adaptation-strategies</loc>
+        <lastmod>2025-01-XX</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <url>
+        <loc>https://roratech.com/intelligence/sender-reputation-recovery-case-study</loc>
+        <lastmod>2025-01-XX</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    -->
+
+    <!-- About/Company Pages -->
+    <url>
+        <loc>https://roratech.com/about</loc>
+        <lastmod>2025-01-15</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+
+    <url>
+        <loc>https://roratech.com/contact</loc>
+        <lastmod>2025-01-15</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+
+    <!-- Case Studies Section (Future) -->
+    <url>
+        <loc>https://roratech.com/case-studies</loc>
+        <lastmod>2025-01-15</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+
+    <!-- Technical Documentation (Future) -->
+    <url>
+        <loc>https://roratech.com/technical-docs</loc>
+        <lastmod>2025-01-15</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+
+    <!-- Resource/Lead Magnet Pages -->
+    <url>
+        <loc>https://roratech.com/resources/decay-prevention-protocol</loc>
+        <lastmod>2025-01-15</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+
+    <!-- Legal Pages - Low Priority but Required -->
+    <url>
+        <loc>https://roratech.com/privacy-policy</loc>
+        <lastmod>2025-01-15</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.3</priority>
+    </url>
+
+    <url>
+        <loc>https://roratech.com/terms-of-service</loc>
+        <lastmod>2025-01-15</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.3</priority>
+    </url>
+
+</urlset>
