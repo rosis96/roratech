@@ -144,43 +144,6 @@
             transform: translateY(-4px);
             box-shadow: 0 0 40px rgba(182, 255, 0, 0.2);
         }
-        
-        /* Email Popup Modal Styles */
-        .email-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(8px);
-            z-index: 9999;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .email-modal.active {
-            display: flex;
-            opacity: 1;
-        }
-        
-        .email-modal-content {
-            transform: scale(0.9);
-            transition: transform 0.3s ease;
-        }
-        
-        .email-modal.active .email-modal-content {
-            transform: scale(1);
-        }
-        
-        .modal-close {
-            transition: all 0.2s ease;
-        }
-        
-        .modal-close:hover {
-            transform: rotate(90deg);
-        }
     </style>
     
     <!-- Schema.org Markup for Organization -->
@@ -301,7 +264,6 @@
                 <div class="hidden md:flex items-center gap-8 text-sm font-medium">
                     <a href="#services" class="text-gray-400 hover:text-white">Services</a>
                     <a href="#diagnostic" class="text-gray-400 hover:text-white">Diagnostic</a>
-                    <a href="#intelligence" class="text-gray-400 hover:text-white">Intelligence</a>
                     <button onclick="Calendly.initPopupWidget({url: 'https://calendly.com/rosis/15min?month=2025-09'});return false;" class="px-6 py-2.5 rounded-full cta-button font-semibold text-sm">
                         Book a Call
                     </button>
@@ -341,9 +303,6 @@
                     <button onclick="Calendly.initPopupWidget({url: 'https://calendly.com/rosis/15min?month=2025-09'});return false;" class="px-8 py-4 rounded-full cta-button font-semibold text-center">
                         Book Your Strategy Call
                     </button>
-                    <a href="#intelligence" class="px-8 py-4 rounded-full border border-white/10 bg-white/5 text-white font-semibold hover:bg-white/10 transition-all text-center">
-                        Read Intelligence Feed
-                    </a>
                 </div>
             </div>
             
@@ -612,120 +571,6 @@
         </div>
     </section>
     
-    <!-- Deliverability Intelligence Feed (Blog Section) -->
-    <section id="intelligence" class="section-spacing bg-[#0f0f0f]">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8">
-            <header class="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-12">
-                <div class="mb-8 lg:mb-0">
-                    <div class="text-sm text-[#B6FF00] font-semibold uppercase tracking-wider mb-4">Knowledge Base</div>
-                    <h2 class="font-display font-bold text-4xl lg:text-5xl mb-4">Deliverability Intelligence Feed</h2>
-                    <p class="text-lg text-gray-400 max-w-2xl">
-                        Advanced insights into reputation decay, ISP algorithms, and lifecycle management strategies.
-                    </p>
-                </div>
-            </header>
-            
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Blog Post 1 -->
-                <article class="blog-card gradient-border rounded-2xl overflow-hidden bg-[#0a0a0a] group cursor-pointer">
-                    <div class="aspect-video bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] relative overflow-hidden">
-                        <div class="absolute inset-0 flex items-center justify-center">
-                            <span class="material-symbols-outlined text-[#B6FF00] text-6xl opacity-20">analytics</span>
-                        </div>
-                        <div class="absolute top-4 left-4 px-3 py-1 bg-red-500/90 backdrop-blur-sm rounded-full text-xs text-white font-semibold uppercase">
-                            Critical
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <time class="text-xs text-gray-500 uppercase tracking-wider" datetime="2025-01-15">Jan 15, 2025</time>
-                        <h3 class="font-display font-bold text-xl mt-2 mb-3 group-hover:text-[#B6FF00] transition-colors">
-                            The Week 3 Wall: Why Your Deliverability Collapses After Perfect Setup
-                        </h3>
-                        <p class="text-sm text-gray-400 mb-4 leading-relaxed">
-                            Understanding the reputation decay curve and why ISP algorithms flag even perfectly configured domains after 14-21 days of sending.
-                        </p>
-                        <div class="flex items-center gap-4 text-xs text-gray-500">
-                            <span class="flex items-center gap-1">
-                                <span class="material-symbols-outlined text-base">schedule</span>
-                                8 min read
-                            </span>
-                            <span class="flex items-center gap-1">
-                                <span class="material-symbols-outlined text-base">visibility</span>
-                                2,847 views
-                            </span>
-                        </div>
-                    </div>
-                </article>
-                
-                <!-- Blog Post 2 -->
-                <article class="blog-card gradient-border rounded-2xl overflow-hidden bg-[#0a0a0a] group cursor-pointer">
-                    <div class="aspect-video bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] relative overflow-hidden">
-                        <div class="absolute inset-0 flex items-center justify-center">
-                            <span class="material-symbols-outlined text-[#B6FF00] text-6xl opacity-20">autorenew</span>
-                        </div>
-                        <div class="absolute top-4 left-4 px-3 py-1 bg-blue-500/90 backdrop-blur-sm rounded-full text-xs text-white font-semibold uppercase">
-                            Strategy
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <time class="text-xs text-gray-500 uppercase tracking-wider" datetime="2025-01-12">Jan 12, 2025</time>
-                        <h3 class="font-display font-bold text-xl mt-2 mb-3 group-hover:text-[#B6FF00] transition-colors">
-                            Predictive Rotation: The Science of Pre-Emptive Domain Management
-                        </h3>
-                        <p class="text-sm text-gray-400 mb-4 leading-relaxed">
-                            How to rotate sending assets before ISP pattern detection triggers spam filtering. A deep dive into rotation schedules and lifecycle timing.
-                        </p>
-                        <div class="flex items-center gap-4 text-xs text-gray-500">
-                            <span class="flex items-center gap-1">
-                                <span class="material-symbols-outlined text-base">schedule</span>
-                                12 min read
-                            </span>
-                            <span class="flex items-center gap-1">
-                                <span class="material-symbols-outlined text-base">visibility</span>
-                                1,923 views
-                            </span>
-                        </div>
-                    </div>
-                </article>
-                
-                <!-- Blog Post 3 -->
-                <article class="blog-card gradient-border rounded-2xl overflow-hidden bg-[#0a0a0a] group cursor-pointer">
-                    <div class="aspect-video bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] relative overflow-hidden">
-                        <div class="absolute inset-0 flex items-center justify-center">
-                            <span class="material-symbols-outlined text-[#B6FF00] text-6xl opacity-20">fingerprint</span>
-                        </div>
-                        <div class="absolute top-4 left-4 px-3 py-1 bg-purple-500/90 backdrop-blur-sm rounded-full text-xs text-white font-semibold uppercase">
-                            Technical
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <time class="text-xs text-gray-500 uppercase tracking-wider" datetime="2025-01-08">Jan 08, 2025</time>
-                        <h3 class="font-display font-bold text-xl mt-2 mb-3 group-hover:text-[#B6FF00] transition-colors">
-                            Behavioral Fingerprinting: How Gmail Detects Your Warm-up Pattern
-                        </h3>
-                        <p class="text-sm text-gray-400 mb-4 leading-relaxed">
-                            Inside Gmail's machine learning models that identify automated sending behavior. What triggers the flags and how to mask your patterns.
-                        </p>
-                        <div class="flex items-center gap-4 text-xs text-gray-500">
-                            <span class="flex items-center gap-1">
-                                <span class="material-symbols-outlined text-base">schedule</span>
-                                15 min read
-                            </span>
-                            <span class="flex items-center gap-1">
-                                <span class="material-symbols-outlined text-base">visibility</span>
-                                3,102 views
-                            </span>
-                        </div>
-                    </div>
-                </article>
-            </div>
-            
-            <div class="text-center mt-12">
-                <p class="text-gray-500 text-sm">More intelligence coming soon. Subscribe to get notified.</p>
-            </div>
-        </div>
-    </section>
-    
     <!-- Trust Signals -->
     <section class="section-spacing bg-[#0f0f0f]">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
@@ -827,7 +672,6 @@
                     <ul class="space-y-3 text-sm text-gray-400">
                         <li><a href="#diagnostic" class="hover:text-[#B6FF00] transition-colors">Decay Diagnostic</a></li>
                         <li><a href="#services" class="hover:text-[#B6FF00] transition-colors">Lifecycle Engine</a></li>
-                        <li><a href="#intelligence" class="hover:text-[#B6FF00] transition-colors">Intelligence Feed</a></li>
                         <li><button onclick="Calendly.initPopupWidget({url: 'https://calendly.com/rosis/15min?month=2025-09'});return false;" class="hover:text-[#B6FF00] transition-colors">Book a Call</button></li>
                     </ul>
                 </nav>
@@ -835,7 +679,6 @@
                 <nav>
                     <h4 class="font-semibold text-white mb-4 uppercase text-xs tracking-wider">Resources</h4>
                     <ul class="space-y-3 text-sm text-gray-400">
-                        <li><a href="#intelligence" class="hover:text-[#B6FF00] transition-colors">Intelligence Feed</a></li>
                         <li><a href="#" class="hover:text-[#B6FF00] transition-colors">Case Studies</a></li>
                         <li><a href="#" class="hover:text-[#B6FF00] transition-colors">Technical Docs</a></li>
                         <li><a href="#" class="hover:text-[#B6FF00] transition-colors">Contact</a></li>
@@ -855,110 +698,8 @@
         </div>
     </footer>
     
-    <!-- Email Popup Modal -->
-    <div id="emailModal" class="email-modal items-center justify-center px-4">
-        <div class="email-modal-content relative max-w-lg w-full">
-            <div class="gradient-border rounded-3xl p-10 bg-[#0a0a0a] relative">
-                <button onclick="closeEmailModal()" class="modal-close absolute top-4 right-4 w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-all">
-                    <span class="material-symbols-outlined">close</span>
-                </button>
-                
-                <div class="text-center mb-8">
-                    <div class="w-16 h-16 rounded-2xl bg-[#B6FF00]/10 flex items-center justify-center mx-auto mb-6">
-                        <span class="material-symbols-outlined text-[#B6FF00] text-4xl">shield</span>
-                    </div>
-                    <h3 class="font-display font-bold text-3xl mb-3">Stop the Week 3 Collapse</h3>
-                    <p class="text-gray-400">
-                        Get the <strong class="text-white">Deliverability Decay Prevention Protocol</strong> — our complete guide to extending sender reputation beyond 90 days.
-                    </p>
-                </div>
-                
-                <form id="emailCaptureForm" class="space-y-4">
-                    <input 
-                        type="email" 
-                        id="emailInput"
-                        placeholder="Your work email" 
-                        class="w-full px-6 py-4 rounded-full bg-white/5 border border-white/10 text-white placeholder:text-gray-500 focus:border-[#B6FF00] focus:outline-none transition-all"
-                        required
-                    />
-                    <button type="submit" class="w-full px-8 py-4 rounded-full cta-button font-semibold text-lg">
-                        Send Me The Protocol
-                    </button>
-                    <p class="text-xs text-gray-500 text-center">
-                        We respect your inbox. No spam, just actionable deliverability insights.
-                    </p>
-                </form>
-            </div>
-        </div>
-    </div>
-    
     <!-- Calendly Widget Script -->
     <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
-    
-    <!-- Email Popup & Scroll Trigger Script -->
-    <script>
-        // Email popup trigger at 50% scroll
-        let emailModalShown = false;
-        
-        window.addEventListener('scroll', function() {
-            if (emailModalShown) return;
-            
-            const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-            
-            if (scrollPercent >= 50) {
-                showEmailModal();
-                emailModalShown = true;
-            }
-        });
-        
-        function showEmailModal() {
-            const modal = document.getElementById('emailModal');
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-        
-        function closeEmailModal() {
-            const modal = document.getElementById('emailModal');
-            modal.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-        
-        // Close modal on backdrop click
-        document.getElementById('emailModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeEmailModal();
-            }
-        });
-        
-        // Close modal on Escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeEmailModal();
-            }
-        });
-        
-        // Email form submission
-        document.getElementById('emailCaptureForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const email = document.getElementById('emailInput').value;
-            
-            // Here you would integrate with your email service provider
-            // For now, we'll just log it and show a success message
-            console.log('Email captured:', email);
-            
-            // Replace form with success message
-            this.innerHTML = `
-                <div class="text-center py-8">
-                    <span class="material-symbols-outlined text-[#B6FF00] text-6xl mb-4 block">check_circle</span>
-                    <h4 class="font-display font-bold text-2xl mb-2">Check Your Inbox!</h4>
-                    <p class="text-gray-400">The Decay Prevention Protocol is on its way to ${email}</p>
-                </div>
-            `;
-            
-            // Close modal after 3 seconds
-            setTimeout(closeEmailModal, 3000);
-        });
-    </script>
     
 </body>
 </html>
